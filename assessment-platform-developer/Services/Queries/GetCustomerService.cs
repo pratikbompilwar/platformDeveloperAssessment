@@ -4,15 +4,15 @@ using assessment_platform_developer.Services.Interfaces;
 
 public class GetCustomerService : IGetCustomerService
 {
-    private readonly ICustomerRepository customerRepository;
+    private readonly ICustomerQueryRepository customerQueryRepository;
 
-    public GetCustomerService(ICustomerRepository customerRepository)
+    public GetCustomerService(ICustomerQueryRepository customerQueryRepository)
     {
-        this.customerRepository = customerRepository;
+        this.customerQueryRepository = customerQueryRepository;
     }
 
     public Customer GetCustomer(int id)
     {
-        return customerRepository.Get(id);
+        return customerQueryRepository.Get(id);
     }
 }

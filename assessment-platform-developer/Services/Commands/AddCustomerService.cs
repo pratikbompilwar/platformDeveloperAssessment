@@ -4,16 +4,16 @@ using assessment_platform_developer.Services.Interfaces;
 
 public class AddCustomerService : IAddCustomerService
 {
-    private readonly ICustomerRepository customerRepository;
+    private readonly ICustomerCommandRepository customerCommandRepository;
 
-    public AddCustomerService(ICustomerRepository customerRepository)
+    public AddCustomerService(ICustomerCommandRepository customerCommandRepository)
     {
-        this.customerRepository = customerRepository;
+        this.customerCommandRepository = customerCommandRepository;
     }
 
     public void AddCustomer(Customer customer)
     {
-        customerRepository.Add(customer);
+        customerCommandRepository.Add(customer);
     }
 
 

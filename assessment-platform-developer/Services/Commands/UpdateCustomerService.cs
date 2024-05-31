@@ -4,18 +4,18 @@ using assessment_platform_developer.Services.Interfaces;
 
 public class UpdateCustomerService : IUpdateCustomerService
 {
-    private readonly ICustomerRepository customerRepository;
+    private readonly ICustomerCommandRepository customerCommandRepository;
 
-    public UpdateCustomerService(ICustomerRepository customerRepository)
+    public UpdateCustomerService(ICustomerCommandRepository customerCommandRepository)
     {
-        this.customerRepository = customerRepository;
+        this.customerCommandRepository = customerCommandRepository;
     }
 
 
 
     public void UpdateCustomer(Customer customer)
     {
-        customerRepository.Update(customer);
+        customerCommandRepository.Update(customer);
     }
 
 }

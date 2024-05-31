@@ -75,8 +75,9 @@ namespace assessment_platform_developer
 			container.Options.DefaultScopedLifestyle = new WebRequestLifestyle();
 
 			// 2. Configure the container (register)
-			container.Register<ICustomerRepository, CustomerRepository>(Lifestyle.Singleton);
-			container.Register<IGetAllCustomerService, GetAllCustomerService>(Lifestyle.Scoped);
+			container.Register<ICustomerQueryRepository, CustomerQueryRepository>(Lifestyle.Singleton);
+            container.Register<ICustomerCommandRepository, CustomerCommandRepository>(Lifestyle.Singleton);
+            container.Register<IGetAllCustomerService, GetAllCustomerService>(Lifestyle.Scoped);
             container.Register<IGetCustomerService, GetCustomerService>(Lifestyle.Scoped);
             container.Register<IAddCustomerService, AddCustomerService>(Lifestyle.Scoped);
             container.Register<IUpdateCustomerService, UpdateCustomerService>(Lifestyle.Scoped);

@@ -5,16 +5,16 @@ using System.Collections.Generic;
 
 public class GetAllCustomerService : IGetAllCustomerService
 {
-    private readonly ICustomerRepository customerRepository;
+    private readonly ICustomerQueryRepository customerQueryRepository;
 
-    public GetAllCustomerService(ICustomerRepository customerRepository)
+    public GetAllCustomerService(ICustomerQueryRepository customerQueryRepository)
     {
-        this.customerRepository = customerRepository;
+        this.customerQueryRepository = customerQueryRepository;
     }
 
     public IEnumerable<Customer> GetAllCustomers()
     {
-        return customerRepository.GetAll();
+        return customerQueryRepository.GetAll();
     }
 
 }

@@ -221,18 +221,20 @@
     <Compile Include="Models\Enums\Countries.cs" />
     <Compile Include="Models\Enums\USStates.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Repositories\CustomersRepository.cs" />
-    <Compile Include="Repositories\ICustomerRepository.cs" />
-    <Compile Include="Services\AddCustomerService.cs" />
-    <Compile Include="Services\DeleteCustomerService.cs" />
-    <Compile Include="Services\GetAllCustomerService.cs" />
-    <Compile Include="Services\GetCustomerService.cs" />
+    <Compile Include="Repositories\Commands\CustomerCommandRepository.cs" />
+    <Compile Include="Repositories\Commands\ICustomerCommandRepository.cs" />
+    <Compile Include="Repositories\Queries\CustomerQueryRepository.cs" />
+    <Compile Include="Repositories\Queries\ICustomerQueryRepository.cs" />
+    <Compile Include="Services\Commands\AddCustomerService.cs" />
+    <Compile Include="Services\Commands\DeleteCustomerService.cs" />
+    <Compile Include="Services\Queries\GetAllCustomerService.cs" />
+    <Compile Include="Services\Queries\GetCustomerService.cs" />
     <Compile Include="Services\Interfaces\IAddCustomerService.cs" />
     <Compile Include="Services\Interfaces\IDeleteCustomerService.cs" />
     <Compile Include="Services\Interfaces\IGetAllCustomerService.cs" />
     <Compile Include="Services\Interfaces\IGetCustomerService.cs" />
     <Compile Include="Services\Interfaces\IUpdateCustomerService.cs" />
-    <Compile Include="Services\UpdateCustomerService.cs" />
+    <Compile Include="Services\Commands\UpdateCustomerService.cs" />
     <Compile Include="Site.Master.cs">
       <DependentUpon>Site.Master</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
