@@ -7,6 +7,7 @@ using System.Web.UI;
 using System.Web.UI.WebControls;
 using assessment_platform_developer.Services;
 using Container = SimpleInjector.Container;
+using assessment_platform_developer.Services.Interfaces;
 
 namespace assessment_platform_developer
 {
@@ -19,7 +20,7 @@ namespace assessment_platform_developer
 			if (!IsPostBack)
 			{
 				var testContainer = (Container)HttpContext.Current.Application["DIContainer"];
-				var customerService = testContainer.GetInstance<ICustomerService>();
+				var customerService = testContainer.GetInstance<IGetAllCustomerService>();
 
 				var allCustomers = customerService.GetAllCustomers();
 				ViewState["Customers"] = allCustomers;
@@ -95,7 +96,7 @@ namespace assessment_platform_developer
 			};
 
 			var testContainer = (Container)HttpContext.Current.Application["DIContainer"];
-			var customerService = testContainer.GetInstance<ICustomerService>();
+			var customerService = testContainer.GetInstance<IAddCustomerService>();
 			customerService.AddCustomer(customer);
 			customers.Add(customer);
 

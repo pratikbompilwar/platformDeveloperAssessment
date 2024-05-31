@@ -5,15 +5,6 @@ using System.Linq;
 
 namespace assessment_platform_developer.Repositories
 {
-	public interface ICustomerRepository
-	{
-		IEnumerable<Customer> GetAll();
-		Customer Get(int id);
-		void Add(Customer customer);
-		void Update(Customer customer);
-		void Delete(int id);
-	}
-
 	public class CustomerRepository : ICustomerRepository
 	{
 		// Assuming you have a DbContext named 'context'

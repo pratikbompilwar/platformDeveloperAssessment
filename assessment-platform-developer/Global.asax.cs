@@ -12,6 +12,7 @@ using System.Web.UI;
 using Microsoft.Web.Infrastructure.DynamicModuleHelper;
 using assessment_platform_developer.Services;
 using SimpleInjector.Integration.Web;
+using assessment_platform_developer.Services.Interfaces;
 
 namespace assessment_platform_developer
 {
@@ -75,10 +76,15 @@ namespace assessment_platform_developer
 
 			// 2. Configure the container (register)
 			container.Register<ICustomerRepository, CustomerRepository>(Lifestyle.Singleton);
-			container.Register<ICustomerService, CustomerService>(Lifestyle.Scoped);
+			container.Register<IGetAllCustomerService, GetAllCustomerService>(Lifestyle.Scoped);
+            container.Register<IGetCustomerService, GetCustomerService>(Lifestyle.Scoped);
+            container.Register<IAddCustomerService, AddCustomerService>(Lifestyle.Scoped);
+            container.Register<IUpdateCustomerService, UpdateCustomerService>(Lifestyle.Scoped);
+            container.Register<IDeleteCustomerService, DeleteCustomerService>(Lifestyle.Scoped);
 
-			// Register your Page classes to allow them to be verified and diagnosed.
-			RegisterWebPages(container);
+
+            // Register your Page classes to allow them to be verified and diagnosed.
+            RegisterWebPages(container);
 			container.Options.ResolveUnregisteredConcreteTypes = true;
 
 			// 3. Store the container for use by Page classes.
