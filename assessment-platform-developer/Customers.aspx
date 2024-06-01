@@ -72,6 +72,7 @@
 
 						<div class="col-md-6">
 							<h1>Add customer</h1>
+							<asp:Label ID="ErrorLabel" class="col-form-label" runat="server" Text=""  CssClass="form-label" ForeColor="Red"></asp:Label>
 							<div class="form-group">
 								<asp:Label ID="CustomerNameLabel" runat="server" Text="Name" CssClass="form-label"></asp:Label>
 								<asp:TextBox ID="CustomerName" runat="server" CssClass="form-control"></asp:TextBox>
@@ -135,7 +136,7 @@
 							</div>
 
 							<div class="form-group">
-								<asp:Button ID="AddButton" class="btn btn-primary btn-md" runat="server" Text="Add" OnClick="AddButton_Click" />
+								<asp:Button ID="AddButton" class="btn btn-primary btn-md" runat="server" Text="Add" OnClick="AddButton_Click" />								
 							</div>
 						</div>
 					</div>
