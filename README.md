@@ -1,38 +1,48 @@
-# Platform Developer Assessment
+## Introduction
+This project is a solution for a technical assessment from HCL where Original project needs to refactor to apply SOLID principles and CQRS pattern on services.
 
-In this assessment, you will demonstrate your ability to refactor code and implement common design patterns and principles used in our codebase.
+Solution conatains following updates from Original project -
+1. Applied SOLID principles
+2. Applied CQRS pattern in services
+3. Added few validations for the form properties.
+4. Added funcationality to UPDATE and DELETE along with ADD.
+5. few fixes to accomodate above changes.
 
-Knowledge of common design patterns used in .NET C# development will be beneficial.
-## Assignment
 
-The Customers.aspx page has code that renders a very simple form that allows users to add a customer to a dropdown list. The customers
-dropdown list is loaded from a local data repository.
+## Installation
+Step-by-step instructions on how to set up your project locally. Include any prerequisites, such as software or tools that need to be installed.
 
-The main goal is to refactor and modify the underlying code to meet common coding disciplines and patterns while also building out additional 
-functionality for the form. Design choices should demonstrate an understanding of testing and long term maintainability considerations.
+1. Clone the repository:
+    
+    git clone https://github.com/pratikbompilwar/platformDeveloperAssessment.git
+       
+2. Install dependencies (if any):
 
-The changes should include the following:
+    Use Nuget package if needed
+    
+3. Build the project:
+    
+    Build and Run the project
 
-1. Refactoring of the model code to follow the SOLID design principle
-2. Refactoring of the Service and Repository objects to use the Command Query Responsibility Segregation pattern 
-3. Add intelligent validation to the fields on the form. IE If a US State is provided, the Postal Code/ZIP field should validate that the 
-value matches the expected ZIP code formats of ##### or #####-#### and vice versa
-4. Allow updating and deletion of customer data listed in the customers drop down list
 
-### Requirements
+## Additional Notes
 
-1. Complete the main goal
-2. Provide a git repository with your solution using a link to a publicly accessible repository
-3. Creation of new objects is expected if SOLID design principles are implemented
-4. Use the git commit history to show progress and your thought process
+- Added SOLID principles where ever necessary. 
+- Refactored code to use CQRS in Repository and Service class. I have not used MediatR as it was not .Net Core project.
+- Added Data annotations in the model class and also used server side validation on Form page.
+- Customer can be selected from the list and perform update/delete funcationality.
+- User can select customer from dropdownlist and data associated with that customer will appear in the form with two buttons for update and    delete.
+- Customer Name is used as Primary key and can not be duplicated for implementing update/delete.
 
-#### Extra credit
+## GIT cloning and Repository
 
-If time allows, add unit testing for the field validations.
+- Cloned original project in the local folder using git.
+- Created new repository in GITHUB and uploaded local project in new repository using GIT BASH
+- commited and push changes to Repo using GIT BASH 
+- commands used are "git add .", "git commit -m "message" ", "git push"
 
-## Delivery
+## Contact
 
-1. Create a new repository with the initial code and complete your solution on top of it, do not fork the repository
-2. Add a README-IMPLEMENTED.md with any details necessary
-3. Once the solution is built, send your solution to your hiring contact
-4. Please deliver the solution within 7 days of receiving this assessment
+- Email: pratikbompilwar@yahoo.com
+- LinkedIn: https://www.linkedin.com/in/pratik-bompilwar-33937539/
+- GitHub: https://github.com/pratikbompilwar
