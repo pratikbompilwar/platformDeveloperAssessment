@@ -60,7 +60,9 @@
 	<div>
 		<div class="container body-content">
 			<h2>Customer Registry</h2>
-			<asp:DropDownList runat="server" ID="CustomersDDL" CssClass="form-control"/>
+			<asp:DropDownList runat="server" ID="CustomersDDL" CssClass="form-control" AutoPostBack="true" OnSelectedIndexChanged ="CustomersDDL_SelectedIndexChanged" >
+				<%--<asp:ListItem Text="Select" Value="" Selected="True"></asp:ListItem>--%>
+		    </asp:DropDownList>
 		</div>
 
 		<div class="container body-content">
@@ -71,7 +73,7 @@
 					<div class="row justify-content-center">
 
 						<div class="col-md-6">
-							<h1>Add customer</h1>
+							<h1 id="HeaderCustomer" runat="server">Add customer</h1>
 							<asp:Label ID="ErrorLabel" class="col-form-label" runat="server" Text=""  CssClass="form-label" ForeColor="Red"></asp:Label>
 							<div class="form-group">
 								<asp:Label ID="CustomerNameLabel" runat="server" Text="Name" CssClass="form-label"></asp:Label>
@@ -136,7 +138,10 @@
 							</div>
 
 							<div class="form-group">
-								<asp:Button ID="AddButton" class="btn btn-primary btn-md" runat="server" Text="Add" OnClick="AddButton_Click" />								
+								<asp:Button ID="AddButton" class="btn btn-primary btn-md" runat="server" Text="Add" OnClick="AddButton_Click" />
+								<asp:Button ID="UpdateButton" class="btn btn-primary btn-md" runat="server" Text="Update" OnClick="UpdateButton_Click" Visible="false"/>
+								<asp:Button ID="DeleteButton" class="btn btn-primary btn-md" runat="server" Text="Delete" OnClick="DeleteButton_Click" Visible="false"/>
+								<asp:Label ID="IDLabel" class="col-form-label" runat="server" Text="" CssClass="form-label" Visible ="false"></asp:Label>
 							</div>
 						</div>
 					</div>
