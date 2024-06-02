@@ -12,6 +12,10 @@ public class GetAllCustomerService : IGetAllCustomerService
         this.customerQueryRepository = customerQueryRepository;
     }
 
+    /// <summary>
+    /// method to get all customer of list
+    /// </summary>
+    /// <returns></returns>
     public IEnumerable<Customer> GetAllCustomers()
     {
         return customerQueryRepository.GetAll();

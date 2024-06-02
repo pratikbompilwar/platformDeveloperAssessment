@@ -7,6 +7,9 @@ using System.Threading.Tasks;
 
 namespace assessment_platform_developer.Repositories
 {
+    /// <summary>
+    /// customer query repository for repository
+    /// </summary>
     public interface ICustomerQueryRepository
     {
         IEnumerable<Customer> GetAll();

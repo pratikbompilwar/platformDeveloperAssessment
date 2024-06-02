@@ -7,6 +7,9 @@ using System.Threading.Tasks;
 
 namespace assessment_platform_developer.Repositories
 {
+    /// <summary>
+    /// customer command interface for repository
+    /// </summary>
     public interface ICustomerCommandRepository
     {
         void Add(Customer customer);

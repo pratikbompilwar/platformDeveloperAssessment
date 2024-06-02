@@ -11,6 +11,11 @@ public class GetCustomerService : IGetCustomerService
         this.customerQueryRepository = customerQueryRepository;
     }
 
+    /// <summary>
+    /// method to get customer by id
+    /// </summary>
+    /// <param name="id"></param>
+    /// <returns></returns>
     public Customer GetCustomer(int id)
     {
         return customerQueryRepository.Get(id);

@@ -1,23 +1,18 @@
 ﻿using assessment_platform_developer.Models;
+using assessment_platform_developer.Services.Interfaces;
 using System;
 using System.Collections.Generic;
+using System.Drawing;
 using System.Linq;
+using System.Text.RegularExpressions;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
-using assessment_platform_developer.Services;
 using Container = SimpleInjector.Container;
-using assessment_platform_developer.Services.Interfaces;
-using System.Xml.Linq;
-using System.Text.RegularExpressions;
-using System.Reflection.Emit;
-using System.Net.NetworkInformation;
-using System.Drawing;
-using System.Runtime.Remoting.Messaging;
 
 namespace assessment_platform_developer
 {
-	public partial class Customers : Page
+    public partial class Customers : Page
 	{
 		private static List<Customer> customers = new List<Customer>();
 
@@ -31,14 +26,13 @@ namespace assessment_platform_developer
 				var allCustomers = customerService.GetAllCustomers();
 				ViewState["Customers"] = allCustomers;
                 PopulateCustomerListBox();
+                PopulateCustomerDropDownLists();
             }
 			else
 			{
 				customers = (List<Customer>)ViewState["Customers"];
 			}
 
-            			
-			PopulateCustomerDropDownLists();
 		}
 
 		private void PopulateCustomerDropDownLists()
@@ -70,7 +64,40 @@ namespace assessment_platform_developer
 			StateDropDownList.Items.AddRange(provinceList);
 		}
 
-		protected void PopulateCustomerListBox()
+        private void PopulateStateDropDownListsBasedOnCountry(string country)
+        {
+            StateDropDownList.Items.Clear();
+            if (country == "0")
+            {
+                var canadianProvinceList = Enum.GetValues(typeof(CanadianProvinces))
+                    .Cast<CanadianProvinces>()
+                    .Select(p => new ListItem
+                    {
+                        Text = p.ToString(),
+                        Value = ((int)p).ToString()
+                    })
+                    .ToArray();
+
+                StateDropDownList.Items.Add(new ListItem(""));
+                StateDropDownList.Items.AddRange(canadianProvinceList);
+            }
+            else
+            {
+                var usProvinceList = Enum.GetValues(typeof(USStates))
+                    .Cast<USStates>()
+                    .Select(p => new ListItem
+                    {
+                        Text = p.ToString(),
+                        Value = ((int)p).ToString()
+                    })
+                    .ToArray();
+
+                StateDropDownList.Items.Add(new ListItem(""));
+                StateDropDownList.Items.AddRange(usProvinceList);
+            }
+        }
+
+        protected void PopulateCustomerListBox()
 		{
 			CustomersDDL.Items.Clear();
 			var storedCustomers = customers.Select(c => new ListItem(c.Name)).ToArray();
@@ -84,8 +111,14 @@ namespace assessment_platform_developer
 			CustomersDDL.Items.Add(new ListItem("Add new customer"));
 		}
 
+        /// <summary>
+        /// Click event for ADD button
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
 		protected void AddButton_Click(object sender, EventArgs e)
 		{
+            //customer data from form
             var customer = new Customer
             {
                 Name = CustomerName.Text,
@@ -98,8 +131,8 @@ namespace assessment_platform_developer
                 Phone = CustomerPhone.Text,
                 Notes = CustomerNotes.Text,
                 ContactName = ContactName.Text,
-                ContactPhone = CustomerPhone.Text,
-                ContactEmail = CustomerEmail.Text,
+                ContactPhone = ContactPhone.Text,
+                ContactEmail = ContactEmail.Text,
                 ID = customers.Count == 0 ? 1 : (customers.Last().ID + 1)
             };
 
@@ -114,24 +147,37 @@ namespace assessment_platform_developer
             }
             else
             {
+                if(!customers.Any(x=> x.ContactName == CustomerName.Text) && CustomerName.Text != "Add new customer")
+                {
 
-                var testContainer = (Container)HttpContext.Current.Application["DIContainer"];
-                var customerService = testContainer.GetInstance<IAddCustomerService>();
-                customerService.AddCustomer(customer);
-                customers.Add(customer);
+                    var testContainer = (Container)HttpContext.Current.Application["DIContainer"];
+                    var customerService = testContainer.GetInstance<IAddCustomerService>();
+                    customerService.AddCustomer(customer);
+                    customers.Add(customer);
 
-                PopulateCustomerListBox();               
-                CustomersDDL.SelectedIndex = 0;
-                
-                ErrorLabel.ForeColor = Color.Green;
-                ErrorLabel.Text = "Customer with name " + CustomerName.Text + " added succefully.";
+                    PopulateCustomerListBox();
+                    CustomersDDL.SelectedIndex = 0;
 
-                //clearing form
-                ClearForm();
+                    ErrorLabel.ForeColor = Color.Green;
+                    ErrorLabel.Text = "Customer with name " + CustomerName.Text + " added succefully.";
+
+                    //clearing form
+                    ClearForm();
+                }
+                else
+                {
+                    ErrorLabel.ForeColor = Color.Red;
+                    ErrorLabel.Text = "- Customer name already exist. Please try changing customer name.";
+                }
 
             }
         }
 
+        /// <summary>
+        /// click event for update button
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         protected void UpdateButton_Click(object sender, EventArgs e)
         {
             bool areErrors = false;
@@ -192,7 +238,7 @@ namespace assessment_platform_developer
 
             if (!areErrors)
             {
-                // messages
+                //messages
                 ErrorLabel.ForeColor = Color.Green;
                 ErrorLabel.Text = "Customer with name " + CustomerName.Text + " updated succefully.";
 
@@ -204,6 +250,7 @@ namespace assessment_platform_developer
 
                 HeaderCustomer.InnerText = "Add customer";
 
+                //updating customerList dropdown
                 PopulateCustomerListBox();
                 CustomersDDL.SelectedIndex = 0;
 
@@ -213,6 +260,11 @@ namespace assessment_platform_developer
 
         }
 
+        /// <summary>
+        /// Click event for delete button
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         protected void DeleteButton_Click(object sender, EventArgs e)
         {
             CustomersDDL.Items.Add(new ListItem("Add new customer"));
@@ -266,6 +318,19 @@ namespace assessment_platform_developer
 
         }
 
+        protected void Country_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            string selectedValue = CountryDropDownList.SelectedValue;
+
+            PopulateStateDropDownListsBasedOnCountry(selectedValue);
+
+        }
+
+        /// <summary>
+        /// method to validate customer object properties
+        /// </summary>
+        /// <param name="inputCustomerObj"></param>
+        /// <returns></returns>
         private List<string> ValidateCustomerForm(Customer inputCustomerObj)
         {
 			List<string> errors = new List<string>();
@@ -303,12 +368,12 @@ namespace assessment_platform_developer
                 errors.Add("Zip is required or Zip cannot be longer than 7 characters");
             }
 
-            if (!string.IsNullOrEmpty(inputCustomerObj.Country) && inputCustomerObj.Country == "United States" && !string.IsNullOrEmpty(inputCustomerObj.Zip) && !Regex.IsMatch(inputCustomerObj.Zip, usZipCodePattern))
+            if (!string.IsNullOrEmpty(inputCustomerObj.Country) && inputCustomerObj.Country == "1" && !string.IsNullOrEmpty(inputCustomerObj.Zip) && !Regex.IsMatch(inputCustomerObj.Zip, usZipCodePattern))
 			{
                 errors.Add("Invalid US Zip Code");
             }
 
-            if (!string.IsNullOrEmpty(inputCustomerObj.Country) && inputCustomerObj.Country == "Canada" && !string.IsNullOrEmpty(inputCustomerObj.Zip) && !Regex.IsMatch(inputCustomerObj.Zip, canadaZipCodePattern))
+            if (!string.IsNullOrEmpty(inputCustomerObj.Country) && inputCustomerObj.Country == "0" && !string.IsNullOrEmpty(inputCustomerObj.Zip) && !Regex.IsMatch(inputCustomerObj.Zip, canadaZipCodePattern))
             {
                 errors.Add("Invalid Canada Zip Code");
             }
@@ -359,6 +424,10 @@ namespace assessment_platform_developer
             return errors;
         }
 
+        /// <summary>
+        /// method to display selected customer from dropdown list
+        /// </summary>
+        /// <param name="selectedValue"></param>
         private void DisplaySelectedCustomer(string selectedValue)
         {
             //get selected customer by name
@@ -385,6 +454,9 @@ namespace assessment_platform_developer
             }
         }
 
+        /// <summary>
+        /// method to clear of form data
+        /// </summary>
         private void ClearForm()
         {
             // clreared all values from form

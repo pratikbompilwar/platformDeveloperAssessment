@@ -12,7 +12,10 @@ public class UpdateCustomerService : IUpdateCustomerService
     }
 
 
-
+    /// <summary>
+    /// method to update customer from the list
+    /// </summary>
+    /// <param name="customer"></param>
     public void UpdateCustomer(Customer customer)
     {
         customerCommandRepository.Update(customer);

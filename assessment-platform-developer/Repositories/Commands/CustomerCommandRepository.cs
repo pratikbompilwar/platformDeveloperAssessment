@@ -13,6 +13,10 @@ public class CustomerCommandRepository : ICustomerCommandRepository
         customers.Add(customer);
     }
 
+    /// <summary>
+    /// Update method from repository
+    /// </summary>
+    /// <param name="customer"></param>
     public void Update(Customer customer)
     {
         var existingCustomer = customers.FirstOrDefault(c => c.ID == customer.ID);
@@ -25,6 +29,10 @@ public class CustomerCommandRepository : ICustomerCommandRepository
         }
     }
 
+    /// <summary>
+    /// delete method from repository
+    /// </summary>
+    /// <param name="id"></param>
     public void Delete(int id)
     {
         var customer = customers.FirstOrDefault(c => c.ID == id);

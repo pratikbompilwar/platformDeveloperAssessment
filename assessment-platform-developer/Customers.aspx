@@ -60,8 +60,7 @@
 	<div>
 		<div class="container body-content">
 			<h2>Customer Registry</h2>
-			<asp:DropDownList runat="server" ID="CustomersDDL" CssClass="form-control" AutoPostBack="true" OnSelectedIndexChanged ="CustomersDDL_SelectedIndexChanged" >
-				<%--<asp:ListItem Text="Select" Value="" Selected="True"></asp:ListItem>--%>
+			<asp:DropDownList runat="server" ID="CustomersDDL" CssClass="form-control" AutoPostBack="true" OnSelectedIndexChanged ="CustomersDDL_SelectedIndexChanged" >				
 		    </asp:DropDownList>
 		</div>
 
@@ -112,7 +111,7 @@
 
 							<div class="form-group">
 								<asp:Label ID="CustomerCountryLabel" runat="server" Text="Country" CssClass="form-label"></asp:Label>
-								<asp:DropDownList ID="CountryDropDownList" runat="server" CssClass="form-control"/>
+								<asp:DropDownList ID="CountryDropDownList" runat="server" CssClass="form-control" AutoPostBack="true" OnSelectedIndexChanged="Country_SelectedIndexChanged"/>
 							</div>
 
 							<div class="form-group">
