@@ -1,5 +1,5 @@
 ## Introduction
-This project is a solution for a technical assessment from HCL where Original project needs to refactor to apply SOLID principles and CQRS pattern on services.
+This project is a solution for a technical assessment from ScanSource where Original project needs to refactor to apply SOLID principles and CQRS pattern on services.
 
 Solution conatains following updates from Original project -
 1. Applied SOLID principles
